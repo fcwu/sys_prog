@@ -1,6 +1,6 @@
 # Screenshot
 
-![screenshot of result](small_linux_result.png "screenshot")
+![screenshot of result](https://github.com/fcwu/sys_prog/raw/master/small_linux_result.png "screenshot")
 
 # Brief Steps
 
