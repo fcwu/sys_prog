@@ -318,6 +318,11 @@ acpi_status my_acpi_ds_init_aml_walk(struct acpi_walk_state *walk_state,
                  struct acpi_evaluate_info *info, u8 pass_number);
 void my_acpi_ds_terminate_control_method(union acpi_operand_object *method_desc,
 				 struct acpi_walk_state *walk_state);
+acpi_status
+my_acpi_evaluate_object(acpi_handle handle,
+		     acpi_string pathname,
+		     struct acpi_object_list *external_params,
+		     struct acpi_buffer *return_buffer);
 
 static struct jprobe my_jprobes[] = {
     {
@@ -331,8 +336,13 @@ static struct jprobe my_jprobes[] = {
         .kp = {
             .symbol_name    = "acpi_ds_terminate_control_method",
         },
+    },
+    {
+        .entry              = my_acpi_evaluate_object,
+        .kp = {
+            .symbol_name    = "acpi_evaluate_object",
+        },
     }
-
 };
 
 static void cleanup(void)
@@ -386,6 +396,27 @@ my_acpi_ds_init_aml_walk(struct acpi_walk_state *walk_state,
             }
         }
     }
+    jprobe_return();
+    return 0;
+}
+
+acpi_status
+my_acpi_evaluate_object(acpi_handle handle,
+		     acpi_string pathname,
+		     struct acpi_object_list *external_params,
+		     struct acpi_buffer *return_buffer)
+{
+    //if (pathname != 0) 
+    //    printk("ASLP: Evaluate %s():\n", pathname);
+    //else if (handle != 0)
+    if (handle != 0) {
+        printk("ASLP: %p\n", handle);
+        printk("ASLP: Evaluate %p\n", ((struct acpi_namespace_node *)handle)->name);
+        printk("ASLP: Evaluate %4.4s():\n", ((struct acpi_namespace_node *)handle)->name.ascii);
+    } else {
+        printk("ASLP: Evaluate NULL\n");
+    }
+
     jprobe_return();
     return 0;
 }
