@@ -128,7 +128,7 @@ exec 2>/dev/null
 trap cleanup INT TERM
 ISO_PATH=$1
 GRUB_CFG=$2
-[ -z $ROOT_DEV ] || ROOT_DEV="(hd0,msdos2)"
+[ -z "$ROOT_DEV" ] && ROOT_DEV="(hd0,msdos2)"
 MOUNT_POINT=$(mktemp -d)
 
 # arguments sentry
