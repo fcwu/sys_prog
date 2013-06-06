@@ -114,7 +114,7 @@ menuentry "$iso_name" {
     set root=$ROOT_DEV
     set isofile="/$iso_name"
     loopback loop \$isofile
-    linux (loop)/$vmlinuz boot=casper iso-scan/filename=$isofile noprompt automatic-ubiquity quiet splash --
+    linux (loop)/$vmlinuz boot=casper iso-scan/filename=\$isofile noprompt automatic-ubiquity quiet splash --
     initrd (loop)/$initrd
 }
 EOF
