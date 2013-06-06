@@ -140,7 +140,7 @@ rm -f $GRUB_CFG || die "failed to remove ${GRUB_CFG}"
 create_grub_cfg_template || die "${GRUB_CFG} is not writable"
 
 echo "Scanning $ISO_PATH"
-for iso in $ISO_PATH/*.iso $ISO_PATH/iso/*.iso ; do
+for iso in $(ls $ISO_PATH/*.iso $ISO_PATH/iso/*.iso) ; do
     echo -n "    creating boot entry for file $iso..."
     if create_grub_cfg_boot_entry_for_iso "$iso" ; then
         echo "ok"
